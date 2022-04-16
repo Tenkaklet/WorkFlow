@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
 const Discord = require('discord.js');
-const { MessageActionRow, MessageSelectMenu } = require('discord.js');
+const { MessageActionRow, MessageSelectMenu, MessageEmbed } = require('discord.js');
 const client = new Discord.Client({ intents: ['GUILDS', 'GUILD_MESSAGES'] });
 
 // Initialize dotenv & Discord
@@ -67,7 +67,7 @@ client.on('interactionCreate', async interaction => {
         ]),
         );
     
-        const header = 'Du valde att hjälpa dig med din nya App.';
+        const header = 'Du valde att be om hjälp med din nya App.';
         await interaction.reply({ content: header, components: [row] });
     }
 
@@ -76,12 +76,12 @@ client.on('interactionCreate', async interaction => {
             {
                 label: 'Ja',
                 description: 'Gå vidare till nästa steg',
-                value: 'help-with-app-2',
+                value: 'help-with-app-api-ja',
             },
             {
                 label: 'Nej',
                 description: 'Gå tillbaka till föregående meny',
-                value: 'help-with-app',
+                value: 'help-with-app-api-nej',
             },
         ]),
         );
@@ -89,12 +89,12 @@ client.on('interactionCreate', async interaction => {
         await interaction.reply({content: header, components: [row]});
     }
 
-    if(interaction.values[0] === 'help-with-app-2') {
-        const row = new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId('select-help-with-app').setPlaceholder('Har du en API?').addOptions([
+    if(interaction.values[0] === 'help-with-app-api-ja') {
+        const row = new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId('select-help-with-app').setPlaceholder('Nästa steg?').addOptions([
             {
                 label: 'Ja',
                 description: 'Gå vidare till nästa steg',
-                value: 'help-with-app-2',
+                value: 'help-with-app-3',
             },
             {
                 label: 'Nej',
@@ -105,5 +105,24 @@ client.on('interactionCreate', async interaction => {
         );
         const header = "Ok. Du har ett API";
         await interaction.reply({content: header, components: [row]});
+    }
+
+    if(interaction.values[0] === 'help-with-app-api-nej') {
+        const row = new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId('select-help-with-app').setPlaceholder('Vill du öppna länken i webbläsaren?').addOptions([
+            {
+                label: 'Ja',
+                description: 'Gå vidare till nästa steg',
+                value: 'help-with-app-4',
+            },
+            {
+                label: 'Nej',
+                description: 'Gå tillbaka till föregående meny',
+                value: 'help-with-app-3',
+            },
+        ]),
+        );
+        const header = "Vad vill du göra?";
+        const link = new MessageEmbed().setURL('https://publicapis.sznm.dev/').setDescription('Public APIs');
+        await interaction.reply({content: header, embeds: [link]});
     }
 });
