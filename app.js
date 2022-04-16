@@ -111,18 +111,18 @@ client.on('interactionCreate', async interaction => {
         const row = new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId('select-help-with-app').setPlaceholder('Vill du öppna länken i webbläsaren?').addOptions([
             {
                 label: 'Ja',
-                description: 'Gå vidare till nästa steg',
-                value: 'help-with-app-4',
+                description: 'Jag vill klicka på länken',
+                value: 'help-with-app-open-link',
             },
             {
                 label: 'Nej',
-                description: 'Gå tillbaka till föregående meny',
-                value: 'help-with-app-3',
+                description: 'Jag vill gå tillbaka ett steg',
+                value: 'help-with-app-no-open-link',
             },
         ]),
         );
         const header = "Vad vill du göra?";
-        const link = new MessageEmbed().setURL('https://publicapis.sznm.dev/').setDescription('Public APIs');
+        const link = new MessageEmbed().setURL('https://publicapis.sznm.dev/').setDescription('https://publicapis.sznm.dev/').addField('Public APIs', 'klicka på länken för att kolla', true);
         await interaction.reply({content: header, embeds: [link]});
     }
 });
