@@ -51,12 +51,13 @@ const doSomething = async (message, prefix) => {
 client.on('interactionCreate', async interaction => {
     if (!interaction.isSelectMenu()) return;
 
+    // *** Initial start of Workflow!
     if (interaction.customId === 'select' && interaction.values[0] === 'help-with-app') {
         const row = new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId('select').setPlaceholder('Korrekt?').addOptions([
             {
                 label: 'Ja',
                 description: 'Gå vidare till nästa steg',
-                value: 'help-with-app-next-step',
+                value: 'help-with-app-1',
             },
             {
                 label: 'Nej',
@@ -68,5 +69,41 @@ client.on('interactionCreate', async interaction => {
     
         const header = 'Du valde att hjälpa dig med din nya App.';
         await interaction.reply({ content: header, components: [row] });
+    }
+
+    if(interaction.values[0] === 'help-with-app-1') {
+        const row = new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId('select-help-with-app').setPlaceholder('Har du en API?').addOptions([
+            {
+                label: 'Ja',
+                description: 'Gå vidare till nästa steg',
+                value: 'help-with-app-2',
+            },
+            {
+                label: 'Nej',
+                description: 'Gå tillbaka till föregående meny',
+                value: 'help-with-app',
+            },
+        ]),
+        );
+        const header = "Ok! Let's go....";
+        await interaction.reply({content: header, components: [row]});
+    }
+
+    if(interaction.values[0] === 'help-with-app-2') {
+        const row = new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId('select-help-with-app').setPlaceholder('Har du en API?').addOptions([
+            {
+                label: 'Ja',
+                description: 'Gå vidare till nästa steg',
+                value: 'help-with-app-2',
+            },
+            {
+                label: 'Nej',
+                description: 'Gå tillbaka till föregående meny',
+                value: 'help-with-app',
+            },
+        ]),
+        );
+        const header = "Ok. Du har ett API";
+        await interaction.reply({content: header, components: [row]});
     }
 });
