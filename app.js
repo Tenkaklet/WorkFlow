@@ -117,6 +117,25 @@ client.on('interactionCreate', async interaction => {
             {
                 label: 'Nej',
                 description: 'Jag vill gå tillbaka ett steg',
+                value: 'help-with-app-3',
+            },
+        ]),
+        );
+        const header = "Vad vill du göra?";
+        const link = new MessageEmbed().setURL('https://publicapis.sznm.dev/').setDescription('https://publicapis.sznm.dev/').addField('Public APIs', 'klicka på länken för att kolla', true);
+        await interaction.reply({content: header, embeds: [link]});
+    }
+
+    if(interaction.values[0] === 'help-with-app-api-nej') {
+        const row = new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId('select-help-with-app').setPlaceholder('Vill du öppna länken i webbläsaren?').addOptions([
+            {
+                label: 'Ja',
+                description: 'Jag vill klicka på länken',
+                value: 'help-with-app-open-link',
+            },
+            {
+                label: 'Nej',
+                description: 'Jag vill gå tillbaka ett steg',
                 value: 'help-with-app-no-open-link',
             },
         ]),
