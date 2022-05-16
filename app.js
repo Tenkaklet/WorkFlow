@@ -61,14 +61,18 @@ client.on('interactionCreate', async interaction => {
             },
             {
                 label: 'Nej',
-                description: 'Gå tillbaka till föregående meny',
-                value: 'start-over',
+                description: 'Jag klarar mig själv',
+                value: 'end-help',
             },
         ]),
         );
     
         const header = 'Du valde att be om hjälp med din nya App.';
         await interaction.reply({ content: header, components: [row] });
+    }
+
+    if(interaction.values[0] === 'end-help') {
+       await interaction.reply('Ok, lycka till ' + interaction.user.username);
     }
 
     if(interaction.values[0] === 'help-with-app-1') {
@@ -94,7 +98,7 @@ client.on('interactionCreate', async interaction => {
             {
                 label: 'Ja',
                 description: 'Gå vidare till nästa steg',
-                value: 'help-with-app-3',
+                value: 'end-help',
             },
             {
                 label: 'Nej',
@@ -121,8 +125,8 @@ client.on('interactionCreate', async interaction => {
             },
         ]),
         );
-        const header = "Vad vill du göra?";
-        const link = new MessageEmbed().setURL('https://publicapis.sznm.dev/').setDescription('https://publicapis.sznm.dev/').addField('Public APIs', 'klicka på länken för att kolla', true);
+        const header = "Vad vill du göra? 1";
+        const link = new MessageEmbed().setURL('https://github.com/toddmotto/public-apis#index').setDescription('https://github.com/toddmotto/public-apis#index').addField('Public APIs', 'klicka på länken för att kolla', true);
         await interaction.reply({content: header, embeds: [link]});
     }
 
@@ -140,8 +144,8 @@ client.on('interactionCreate', async interaction => {
             },
         ]),
         );
-        const header = "Vad vill du göra?";
-        const link = new MessageEmbed().setURL('https://publicapis.sznm.dev/').setDescription('https://publicapis.sznm.dev/').addField('Public APIs', 'klicka på länken för att kolla', true);
+        const header = "Vad vill du göra? 2";
+        const link = new MessageEmbed().setURL('https://github.com/toddmotto/public-apis#index').setDescription('https://github.com/toddmotto/public-apis#index').addField('Public APIs', 'klicka på länken för att kolla', true);
         await interaction.reply({content: header, embeds: [link]});
     }
 });
